@@ -25,7 +25,7 @@ var auth =FirebaseAuth.instance;
       navigator?.hideLoadingDialoge();
       navigator?.showMessage(credential.user?.uid??"");
       navigator?.hideLoadingDialoge();
-      Navigator.pushReplacementNamed(context, RoutesManager.home);
+      Navigator.pushReplacementNamed(context, RoutesManager.home,arguments: emailController);
 
     } on FirebaseAuthException catch (e) {
       navigator?.hideLoadingDialoge();

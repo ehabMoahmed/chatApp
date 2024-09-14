@@ -1,3 +1,4 @@
+import 'package:chat_app/presentation/ui/Chat/widgets/ChatWidgetOfFriend.dart';
 import 'package:chat_app/presentation/ui/Chat/widgets/ChatWidgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +16,10 @@ class ChatPage extends StatelessWidget {
   TextEditingController controller=TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var email=ModalRoute.of(context)!.settings.arguments;
+
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.orderBy('createdAt') .snapshots(),
+      stream: messages.orderBy('createdAt',descending: true) .snapshots(),
       builder:(context, snapshot) {
         if (snapshot.hasError) {
           return Text("Something went wrong");
@@ -43,10 +46,9 @@ class ChatPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListView.separated(
+                      reverse: true,
                       controller:_scrollController ,
-                      itemBuilder:  (context, index) => Align(
-                          alignment: Alignment.centerLeft,
-                          child: ChatWidget(messagesList[index])),
+                      itemBuilder:  (context, index) => messagesList[index].id==email? ChatWidget(messagesList[index]):ChatWidgetOfFriend(messagesList[index]),
                       itemCount:messagesList.length ,
                       separatorBuilder: (context, index) => SizedBox(height: 10,),
 
@@ -57,10 +59,11 @@ class ChatPage extends StatelessWidget {
                       messages.add({
                         'message':value,
                         'createdAt': DateTime.now(),
+                        'id':email,
                       });
                       controller.clear();
                       _scrollController.animateTo(
-                          _scrollController.position.maxScrollExtent,
+                          0,
                           duration: Duration(seconds: 1),
                           curve: Curves.fastOutSlowIn);
                     },
@@ -83,7 +86,7 @@ class ChatPage extends StatelessWidget {
         }
 
 
-        return Text("loading");
+        return Center(child: CircularProgressIndicator());
       },
     );
 

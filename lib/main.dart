@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
         RoutesManager.login:(context) => LoginScreen(),
         RoutesManager.home:(context) => ChatPage(),
       },
-      initialRoute:    RoutesManager.home,
+      initialRoute:    RoutesManager.login,
 
-      title: 'Flutter Demo',
       theme: ThemeData(
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
