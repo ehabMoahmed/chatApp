@@ -2,8 +2,8 @@
 import 'package:chat_app/core/utils/routes_manager.dart';
 import 'package:chat_app/presentation/auth/login/login_Screen.dart';
 import 'package:chat_app/presentation/auth/register/register_screen.dart';
-import 'package:chat_app/presentation/ui/home/home_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:chat_app/presentation/ui/Chat/chat_screen.dart';
+ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 void main() async{
@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
       routes: {
         RoutesManager.register:(context) => RegisterScreen(),
         RoutesManager.login:(context) => LoginScreen(),
-        RoutesManager.home:(context) => HomeScreen(),
+        RoutesManager.home:(context) => ChatPage(),
       },
-      initialRoute:    RoutesManager.register,
+      initialRoute:    RoutesManager.home,
 
       title: 'Flutter Demo',
       theme: ThemeData(
